@@ -38,7 +38,7 @@ def PassWord(attempts):
             PassWord(attempts-1)
 
     else:
-        pass
+        sys.exit()
 
 username = input('Enter User:')
 

@@ -1,6 +1,8 @@
 import datetime,webbrowser,sys
 from mysql.connector import connect
 
+# admin login
+
 def admin():
     password = '#admin'
     mydb = connect(
@@ -10,6 +12,8 @@ def admin():
             database = 'dbs')
     return(mydb,password)
 
+# guest login
+
 def guest():
     password = '#guest'
     mydb = connect(
@@ -18,6 +22,8 @@ def guest():
             password = password,
             database = 'dbs')
     return(mydb,password)
+
+# password verification
 
 def PassWord(attempts):
     if attempts != 0:
@@ -37,10 +43,14 @@ def PassWord(attempts):
 
             PassWord(attempts-1)
 
+    # exits application when if incorrect passwords is entered 3 times..
+
     else:
         sys.exit()
 
 username = input('Enter User:')
+
+# new meeting (for admin)
 
 def Nm(mydb):
     Mstuname = input('Enter Student Name:')
@@ -54,12 +64,18 @@ def Nm(mydb):
     (Mstuname,Mstuno,MDate,MTime,MLink,'A'))
     mydb.commit()
 
+# check attendance (for admin)
+
 def Ca(cursor):
     cursor.execute('SELECT Name,Id FROM classxii WHERE Attendance = "P"')
     results = cursor.fetchall()
 
     for i in results:
         print(i)
+
+# check meeting (for guest)
+# -------------------------
+# Only show meeting if scheduled by admin
 
 def Cm(mydb,cursor):
     iD = int(input('Enter Student Id:'))
@@ -92,6 +108,8 @@ def Cm(mydb,cursor):
             cursor.execute('UPDATE classxii SET Attendance = "P" WHERE Sno = %s',(i[0],))
             mydb.commit()
 
+# user == admin
+
 if username.lower() == 'admin':
     mydb,password = admin()
     PassWord(3)
@@ -116,6 +134,8 @@ if username.lower() == 'admin':
 
         if exit == 'y': sys.exit()
 
+# user == guest
+
 elif username.lower() == 'guest':
     mydb,password = guest()
     PassWord(3)
@@ -123,6 +143,8 @@ elif username.lower() == 'guest':
     exit = input('Exit (y/n):')
 
     if exit == 'y': sys.exit()
+
+# user != (admin or guest)
 
 else:
     print('User not Found!')

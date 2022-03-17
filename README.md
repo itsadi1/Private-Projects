@@ -1,5 +1,5 @@
 # Record : A necessary attendance tool
-![Record.py](./record.png)<br>
+<img src="./record.png" width=200px><br>
 ## Created By
 > Name: **Aditya Bajaj**<br>
 > Class: **XII-B**<br>

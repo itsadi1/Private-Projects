@@ -144,7 +144,7 @@ elif username.lower() == 'guest':
 
     if exit == 'y': sys.exit()
 
-# user != (admin or guest)
+# (user != admin) or (user != guest)
 
 else:
     print('User not Found!')
